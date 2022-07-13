@@ -3,7 +3,7 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 
-path = 'D:\\DocumentosD\\UTP\\brazo\\Train2'
+path = 'D:\\DocumentosD\\Python\\Vision-artificial\\Imagenes\\Train' #Ruta donde se encuentran las imagenes de referencia
 sift = cv.SIFT_create(nfeatures=1000)
 
 #detect images

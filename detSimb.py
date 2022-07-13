@@ -17,7 +17,7 @@ def detect(img, recorte):
 
 
 #simbolos de interes
-Ruta = 'D:\\DocumentosD\\UTP\\brazo\\Train\\'
+path = 'D:\\DocumentosD\\Python\\Vision-artificial\\Imagenes\\Train' #Ruta donde se encuentran las imagenes de referencia
 ext = '.jpg'
 r1 = cv.imread(Ruta + 'r_pills' + ext)
 cv.imshow('r1',r1)

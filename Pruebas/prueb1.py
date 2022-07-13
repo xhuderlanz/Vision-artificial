@@ -17,8 +17,8 @@ def ResizeWithAspectRatio(image, width=None, height=None, inter=cv.INTER_AREA):
     return cv.resize(image, dim, interpolation=inter)
 
 
-path1 = 'D:\\DocumentosD\\UTP\\brazo\\Train\\'
-path2 = 'D:\\DocumentosD\\UTP\\brazo\\Prueba\\'
+path1 = 'D:\\DocumentosD\\Python\\Vision-artificial\\Imagenes\\Train' #Ruta donde se encuentran las imagenes de referencia
+path2 = 'D:\\DocumentosD\\Python\\Vision-artificial\\Imagenes\\Prueba' #Ruta donde se encuentran las imagenes de referencia
 img1 = cv.imread(path1+'r_pills.jpg')
 img2 = cv.imread(path2+'a.jpg')
 

@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 import os
 
-path = 'D:\\DocumentosD\\UTP\\brazo\\Train' #Ruta donde se encuentran las imagenes de referencia
+path = 'D:\\DocumentosD\\Python\\Vision-artificial\\Imagenes\\Train' #Ruta donde se encuentran las imagenes de referencia
 sift = cv.SIFT_create(nfeatures=3000) #función utilizada para crear un objeto sift.
 
 #detect images 
