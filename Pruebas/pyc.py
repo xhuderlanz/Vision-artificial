@@ -1,3 +1,3 @@
 import py_compile
 
-py_compile.compile('detColor.py')
+py_compile.compile('PruebasPy.py')

@@ -1,6 +1,5 @@
 #D:\DocumentosD\UTP\brazo\prueba.jpg
 
-from ctypes import sizeof
 import numpy as np
 import cv2  
 import matplotlib.pyplot as plt
@@ -26,7 +25,7 @@ def rz(image, width=None, height=None, inter=cv2.INTER_AREA):
 path = 'D:\\DocumentosD\\Python\\Vision-artificial\\Imagenes\\TrainF'
 images = []
 
-colors = np.array([[],[],[],[]]) #[gray, b, g, r]
+colors = [[],[],[],[]] #[gray, b, g, r]
 classNames = [] 
 myList = os.listdir(path) 
 
@@ -43,16 +42,25 @@ for cl in myList:
     classNames.append(os.path.splitext(cl)[0]) 
 print(classNames)
 
-print('dimension: ', colors.shape())
-# #colores
-# h1, h2 = [], []
-# for i in range():
-    
+print('colors[0]: ', len(colors[0]), ' | colors: ', len(colors))
 
-# show = cv2.resize( np.vstack( (rz(np.hstack( h1 ), width=1300), rz(np.hstack( h2 ), width=1300)) ), (1280,720), interpolation=cv2.INTER_AREA )
 
-# cv2.imshow('Imagen', show)
+#colores
 
+for i in range(len(colors[0])):
+    h1, h2 = [], []
+    for j in range(len(colors)):
+        if j <= 1:
+            h1.append(colors[j][i])
+            print('j: ',j)
+        else:
+            print('j: ',j)
+            h2.append(colors[j][i])
+    show = cv2.resize( np.vstack( (rz(np.hstack( h1 ), width=1300), rz(np.hstack( h2 ), width=1300)) ), (1280,720), interpolation=cv2.INTER_AREA )
+    cv2.imshow('Imagen', show)
+    cv2.waitKey()
+
+cv2.destroyAllWindows()
 
 
 # sift = cv2.SIFT_create(nfeatures=500)
@@ -98,6 +106,7 @@ print('dimension: ', colors.shape())
 # # cv2.namedWindow("output", cv2.WINDOW_NORMAL)    # Create window with freedom of dimensions
 # # im = cv2.imread(path)                    # Read image
 # # imS = cv2.resize(im, (960, 540))                # Resize image
+
 # # cv2.imshow("output", imS)                       # Show image
 # # cv2.waitKey(0)   
 
