@@ -28,32 +28,32 @@ def findDes(images): #Funcion para obtener los keypoint y descriptores de las im
 
 def findId(img, desList, thres = 6):
     
-
-    kp2, dp2 = sift.detectAndCompute(img, None)
-    print('\nkp:\n',kp2)
-    print('\ndp:\n',dp2)
-
-    
-    
-    
-    
-    
-    bf = cv.BFMatcher()
-    matchList = []
-    finalVal = -1
-    try:
-        for des in desList:
-            match = bf.knnMatch(des,dp2, k = 2)
-            good = []
-            for m,n in match:
-                if m.distance < 0.45*n.distance:
-                    good.append([m])
-            matchList.append(len(good))
+    aux = np.zeros(len(desList))
+    for i in range(3):	
+        kp2, dp2 = sift.detectAndCompute(img, None)
         
-        print(matchList)
-        
-    except:
-        pass
+        bf = cv.BFMatcher()
+        matchList = []
+        finalVal = -1
+        try:
+            for des in desList:
+                match = bf.knnMatch(des,dp2, k = 2)
+                good = []
+                for m,n in match:
+                    if m.distance < 0.45*n.distance:
+                        good.append([m])
+                matchList.append(len(good))
+            
+            print('match: ',matchList)
+            for j in range(len(matchList)):
+                aux[j] = aux[j] + matchList[j]   
+            
+            print('aux: ', aux)
+            
+            
+        except:
+            pass
+    print('\n\nend\n\n')
     
     if len(matchList)!=0:
         if max(matchList) > thres:
