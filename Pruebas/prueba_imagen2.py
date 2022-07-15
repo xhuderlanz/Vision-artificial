@@ -1,5 +1,6 @@
 #D:\DocumentosD\UTP\brazo\prueba.jpg
 
+from turtle import width
 import numpy as np
 import cv2  
 import matplotlib.pyplot as plt
@@ -58,12 +59,25 @@ def bin(img, u):
     return bw
 
 def blur_img(img, u):
-    br = [[],[],[],[]]
+    br = []
+    for i in range(len(img)):  
+        #b = cv2.GaussianBlur(img[i], (u,u), cv2.BORDER_DEFAULT)
+        b = cv2.medianBlur(img[i], u)
+        br.append(b)
+    return br
+
+def join(img):
+    br = []
     for i in range(len(img[0])):  
-        for j in range(len(img)):
-            #b = cv2.GaussianBlur(img[j][i], (u,u), cv2.BORDER_DEFAULT)
-            b = cv2.medianBlur(img[j][i], u)
-            br[j].append(b)
+        aux = []
+        for j in range(2):
+            if j <= 1:
+                aux.append(cv2.bitwise_or(img[j][i], img[j+1][i]) )    
+            else:
+                aux.append(cv2.bitwise_or(img[j][i], img[j+1][i]) )
+        a = cv2.bitwise_or(aux[0], aux[1]) 
+        br.append(a)
+        
     return br
 
 def morph(img, opcion, size_kernel):
@@ -86,6 +100,10 @@ def morph(img, opcion, size_kernel):
        
     return mp
 
+def show_sing(img, name, plus_name):
+    for i in range(len(img)):
+        show = cv2.resize(img[i], (800,600), interpolation=cv2.INTER_AREA )
+        cv2.imshow(name[i] + plus_name, show)
 
 def show_img(img, name, plus_name):
     for i in range(len(img[0])):
@@ -101,6 +119,7 @@ def show_img(img, name, plus_name):
         cv2.imshow(name[i] + plus_name, show)
         
 
+hola = [[],[],[],[]]
 
 for cl in myList: 
     imgCur = rz(cv2.imread(f'{path}\\{cl}'), height=800) 
@@ -111,6 +130,10 @@ for cl in myList:
     colors[1].append(b)
     colors[2].append(g)
     colors[3].append(r)
+    hola[0].append(1)
+    hola[1].append(1)
+    hola[2].append(1)
+    hola[3].append(1)
     not_colors[0].append(cv2.bitwise_not(gy))
     not_colors[1].append(cv2.bitwise_not(b))
     not_colors[2].append(cv2.bitwise_not(g))
@@ -125,13 +148,28 @@ print('colors[0]: ', len(colors[0]), ' | colors: ', len(colors))
 
 #show_img(not_colors, classNames, 'inverso')   
 #histogram(not_colors,'inverso ', classNames, color_name, row=2, col=2)
-bw = bin(not_colors, u = 140) 
-mp = morph(bw, opcion=1, size_kernel=20) 
-mp = morph(mp, opcion=3, size_kernel=10) 
-blur = blur_img(mp, u=9)
+bw = bin(not_colors, u = 153) 
+mp = morph(bw, opcion=2, size_kernel=4)
+mp = morph(bw, opcion=1, size_kernel=20)
+for i in range(10):
+    mp = morph(mp, opcion=3, size_kernel=7)
+
+jn = join(mp)
+blur = blur_img(jn, 11)
+#show_sing(blur, classNames, '')
+
+new = []
+for i in range(len(images)):
+    aux = cv2.merge([blur[i],blur[i],blur[i]])
+    new.append(cv2.bitwise_and(images[i],aux))
+    
+show_sing(images, classNames, ' img')       
+show_sing(new, classNames, ' new')   
+
 #show_img(bw, classNames, ' bin')   
 show_img(mp, classNames, ' morph2')  
-show_img(blur, classNames, ' blur')
+#show_img(blur, classNames, ' blur')
+
 
     
 plt.show()
